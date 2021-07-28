@@ -1,6 +1,6 @@
 {
   "name": "Doorbell.io",
-  "version": "0.1.0",
+  "version": "0.1.5",
   "private": true,
   "dependencies": {
     "@tensorflow-models/speech-commands": "^0.4.2",
@@ -34,14 +34,11 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
-      "not dead",
+      ">0.9%",
       "not op_mini all"
     ],
     "development": [
       "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
     ]
   }
 }
