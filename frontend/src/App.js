@@ -3,13 +3,17 @@ import VidCap from './components/VidCap/VidCap'
 import Footer from './components/Footer/Footer'
 import './App.css';
 
-function App() {
+function App() 
+{
 
-  return (
+  return 
+	(
 		<div>
-      <VidCap />
-      <Footer />
-    </div>
+      		<VidCap >
+		</VidCap >
+      		<Footer >
+		</Footer >
+    		</div>
 	);
 }
 
