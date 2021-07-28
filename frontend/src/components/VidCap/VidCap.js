@@ -1,4 +1,3 @@
-import React, { Component } from "react";
 import './VidCap.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
@@ -9,7 +8,7 @@ class VidCap extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {caption: "", file: "", showDetes: false, greedy: "", beam_op: {}, beam_in: 3};
+    this.state = {caption: "", file: "", showDetes: true, greedy: "", beam_op: {}, beam_in: 1};
     this.handleBeamChange = this.handleBeamChange.bind(this);
   }
 
@@ -24,12 +23,11 @@ class VidCap extends Component {
       formData.append("file", file);
       this.setState({file: URL.createObjectURL(file)})
       formData.append("beam_index", this.state.beam_in);
-      axios.post('http://localhost:5000/success', formData, {
+      axios.post('http://localhost:3000/success', formData, {
         headers: {
         'Content-Type': 'multipart/form-data'
       }})
         .then(res => {
-            // console.log({res});
             this.setState({caption: res.data.beam_search_caption, greedy: res.data.greedy_captiong, beam_op: res.data[beam_kw]})
         }).catch(err => {
             console.error({err});
@@ -76,7 +74,7 @@ class VidCap extends Component {
                       onChange={this.onChangeFile.bind(this)}
                       />
                     <input className="beam-input" placeholder="Beam Size (default 3)" type="text" name="beam_size" onChange={this.handleBeamChange} />
-                    <button className="button" onClick={()=>{this.upload.click();this.setState({caption: ""})}}>Upload a video (.mp4, .avi)</button>
+                    <button className="button" onClick={()=>{this.upload.click();this.setState({caption: ""})}}>Upload a video (.mp4)</button>
                     <TextTransition className="results"
                       text={ this.state.caption }
                       springConfig={ presets.wobbly }
@@ -103,13 +101,8 @@ class VidCap extends Component {
                     <div className="capt-container">
                       {Object.entries(this.state.beam_op).map(([key,value]) => this.listComponent(key, value))}
                     </div>
-                    {/* <TextTransition className="results-details" style={{float: "right"}}
-                      text={ this.state.caption }
-                      springConfig={ presets.wobbly }
-                    /> */}
                     {this.state.caption && this.state.caption !== "Generating Caption!"? 
-                      <button className="buttonD" onClick={()=>{this.setState({showDetes: !this.state.showDetes})}}>Go Back</button> 
-                      : null
+                      <button className="buttonD" onClick={()=>{this.setState({showDetes: !this.state.showDetes})}}>Go Back</button>
                     }
                   </div>
                 </div>
